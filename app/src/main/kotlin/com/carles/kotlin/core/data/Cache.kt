@@ -2,6 +2,8 @@ package com.carles.kotlin.core.data
 
 import java.util.*
 
+data class CacheKey(val cacheItem: CacheItems, val itemId: String = "")
+
 enum class CacheItems { POI_LIST, POI_DETAIL }
 
 class Cache {
@@ -10,20 +12,17 @@ class Cache {
         private const val EXPIRE_TIME = 1000 * 60
     }
 
-    private val map: MutableMap<String, Long> = mutableMapOf()
+    private val map: MutableMap<CacheKey, Long> = mutableMapOf()
 
-    private fun getCacheKey(key: CacheItems, itemId: String) = key.toString() + "_" + itemId
-
-    fun isCached(item: CacheItems, itemId: String = ""): Boolean {
-        val key = getCacheKey(item, itemId)
+    fun isCached(key: CacheKey): Boolean {
         if (map.containsKey(key) && map.get(key) ?: 0L < now()) {
             map.remove(key)
         }
         return map.containsKey(key)
     }
 
-    fun set(key: CacheItems, id: String = "") {
-        map.set(getCacheKey(key, id), now() + EXPIRE_TIME)
+    fun set(key: CacheKey) {
+        map.set(key, now() + EXPIRE_TIME)
     }
 
     fun now() = Calendar.getInstance().timeInMillis

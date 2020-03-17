@@ -18,7 +18,8 @@ class PoiListViewModel(private val fetchPoiListUsecase: FetchPoiListUsecase) : V
     }
 
     private fun fetchPoiList() {
-        fetchPoiListUsecase().doOnSubscribe { _observablePoiList.setLoading() }
+        fetchPoiListUsecase()
+            .doOnSubscribe { _observablePoiList.setLoading() }
             .subscribe(::onGetPoiSuccess, ::onGetPoiError)
             .addTo(disposables)
     }

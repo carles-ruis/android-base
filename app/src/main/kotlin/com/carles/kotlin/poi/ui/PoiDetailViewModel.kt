@@ -18,7 +18,8 @@ class PoiDetailViewModel(private val id: String, private val getPoiDetailUsecase
     }
 
     private fun getPoiDetail() {
-        getPoiDetailUsecase(id).doOnSubscribe { _observablePoiDetail.setLoading() }
+        getPoiDetailUsecase(id)
+            .doOnSubscribe { _observablePoiDetail.setLoading() }
             .subscribe(::onGetPoiDetailSuccess, ::onGetPoiDetailError)
             .addTo(disposables)
     }
