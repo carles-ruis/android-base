@@ -4,14 +4,16 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.carles.kotlin.R
+import com.carles.kotlin.core.ui.DebounceClickListener
 import com.carles.kotlin.core.ui.inflate
 import com.carles.kotlin.poi.domain.Poi
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.item_poi_list.*
 
-class PoiListAdapter(private val onPoiClicked: (Poi) -> Unit) : RecyclerView.Adapter<PoiListAdapter.ViewHolder>() {
+class PoiListAdapter(onPoiClicked: (Poi) -> Unit) : RecyclerView.Adapter<PoiListAdapter.ViewHolder>() {
 
     private val items = ArrayList<Poi>()
+    private val debouncePoiClickListener = DebounceClickListener(onPoiClicked)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(parent.inflate(R.layout.item_poi_list))
 
@@ -28,7 +30,7 @@ class PoiListAdapter(private val onPoiClicked: (Poi) -> Unit) : RecyclerView.Ada
     inner class ViewHolder(override val containerView: View) : RecyclerView.ViewHolder(containerView), LayoutContainer {
 
         init {
-            containerView.setOnClickListener { onPoiClicked(items.get(adapterPosition)) }
+            containerView.setOnClickListener { debouncePoiClickListener.onClick(items.get(adapterPosition)) }
         }
 
         fun onBindView(item: Poi) {

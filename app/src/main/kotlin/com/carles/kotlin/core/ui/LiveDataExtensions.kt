@@ -1,5 +1,6 @@
 package com.carles.kotlin.core.ui
 
+import LiveEvent
 import androidx.lifecycle.LiveData
 
 fun <T> LiveData<T>.toSingleEvent(): LiveData<T> {

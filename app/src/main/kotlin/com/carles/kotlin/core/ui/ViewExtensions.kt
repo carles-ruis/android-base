@@ -1,14 +1,19 @@
 package com.carles.kotlin.core.ui
 
 import android.content.res.Resources
+import android.os.SystemClock
 import androidx.annotation.LayoutRes
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.carles.kotlin.R
 import com.google.android.material.appbar.MaterialToolbar
 
-fun ViewGroup.inflate(@LayoutRes layoutRes: Int) = LayoutInflater.from(context).inflate(layoutRes, this, false)
+fun ViewGroup.inflate(
+    @LayoutRes
+    layoutRes: Int
+) = LayoutInflater.from(context).inflate(layoutRes, this, false)
 
 inline fun AppCompatActivity.consume(f: () -> Unit): Boolean {
     f()
@@ -29,3 +34,14 @@ fun AppCompatActivity.initDefaultToolbar(): MaterialToolbar {
 }
 
 fun Int.toPx() = this / Resources.getSystem().displayMetrics.density
+
+fun View.setDebounceClickListener(action: () -> Unit, debounceTime: Long = 2000L) {
+    var lastClickTime: Long = 0
+    this.setOnClickListener(object : View.OnClickListener {
+        override fun onClick(v: View?) {
+            if (SystemClock.elapsedRealtime() - lastClickTime < debounceTime) return
+            lastClickTime = SystemClock.elapsedRealtime()
+            action()
+        }
+    })
+}
