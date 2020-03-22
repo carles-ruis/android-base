@@ -9,12 +9,12 @@ android {
     compileSdkVersion 29
 
     defaultConfig {
-        applicationId "com.carles.kotlin"
+        applicationId "com.carles.base"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
         versionName '1.0.0'
-        testInstrumentationRunner "com.carles.kotlin.TestAppRunner"
+        testInstrumentationRunner "com.carles.base.TestAppRunner"
 
         javaCompileOptions {
             annotationProcessorOptions {
