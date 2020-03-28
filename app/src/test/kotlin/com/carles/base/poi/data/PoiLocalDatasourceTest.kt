@@ -1,9 +1,11 @@
 package com.carles.base.poi.data
 
-import com.carles.base.core.data.Cache
-import com.carles.base.core.data.CacheItems
-import com.carles.base.core.data.CacheKey
-import com.carles.base.core.data.ItemNotCachedException
+import com.carles.base.data.local.Cache
+import com.carles.base.data.local.CacheItems
+import com.carles.base.data.local.CacheKey
+import com.carles.base.data.local.ItemNotCachedException
+import com.carles.base.data.local.PoiDao
+import com.carles.base.data.local.PoiLocalDatasource
 import com.carles.base.poiDetail
 import com.carles.base.poiList
 import io.mockk.every
@@ -17,8 +19,10 @@ class PoiLocalDatasourceTest {
     val cache: Cache = mockk(relaxed = true)
     val dao: PoiDao = mockk(relaxed = true)
     val datasource = PoiLocalDatasource(dao, cache)
-    val poiListKey = CacheKey(CacheItems.POI_LIST)
-    val poiDetailKey = CacheKey(CacheItems.POI_DETAIL, "1")
+    val poiListKey =
+        CacheKey(CacheItems.POI_LIST)
+    val poiDetailKey =
+        CacheKey(CacheItems.POI_DETAIL, "1")
 
     @Test
     fun getPoiList_cacheHit() {

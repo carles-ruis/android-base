@@ -1,10 +1,10 @@
 package com.carles.base
 
-import com.carles.base.poi.domain.Poi
-import com.carles.base.poi.domain.PoiDetail
-import com.carles.base.poi.data.PoiDetailResponseDto
-import com.carles.base.poi.data.PoiListResponseDto
-import com.carles.base.poi.data.PoiResponseDto
+import com.carles.base.domain.Poi
+import com.carles.base.domain.PoiDetail
+import com.carles.base.data.remote.PoiDetailResponseDto
+import com.carles.base.data.remote.PoiListResponseDto
+import com.carles.base.data.remote.PoiResponseDto
 
 private const val DEFAULT_ID = "1"
 
@@ -14,7 +14,8 @@ val poiDetail = createPoiDetail()
 val anotherPoiDetail = createPoiDetail().copy(title = "another_title")
 
 val emptyPoiListResponseDto = PoiListResponseDto(listOf())
-val poiListResponseDto = PoiListResponseDto(listOf(createPoiResponseDto(), createPoiResponseDto("2")))
+val poiListResponseDto =
+    PoiListResponseDto(listOf(createPoiResponseDto(), createPoiResponseDto("2")))
 val poiResponseDto = createPoiResponseDto()
 val poiDetailResponseDto = createPoiDetailResponseDto()
 
@@ -28,6 +29,12 @@ private fun createPoiResponseDto(id: String = DEFAULT_ID) =
     PoiResponseDto(id, "the title", "the geocoordinates")
 
 private fun createPoiDetailResponseDto(id: String = DEFAULT_ID) =
-    PoiDetailResponseDto(id = DEFAULT_ID, title = "the_title", transport = "the_transport", email = "the_email", phone = "the_phone")
+    PoiDetailResponseDto(
+        id = DEFAULT_ID,
+        title = "the_title",
+        transport = "the_transport",
+        email = "the_email",
+        phone = "the_phone"
+    )
 
 

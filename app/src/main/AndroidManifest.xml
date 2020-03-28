@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.carles.base.poi.ui.PoiListActivity"
+            android:name="com.carles.base.ui.poilist.PoiListActivity"
             android:label="@string/poilist_title">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name="com.carles.base.poi.ui.PoiDetailActivity"
+            android:name="com.carles.base.ui.poidetail.PoiDetailActivity"
             android:label="@string/poidetail_title" />
 
         <meta-data

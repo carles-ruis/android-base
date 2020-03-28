@@ -4,10 +4,10 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.room.Room
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.carles.base.poi.data.PoiDao
-import com.carles.base.poi.data.PoiDatabase
-import com.carles.base.poi.domain.Poi
-import com.carles.base.poi.domain.PoiDetail
+import com.carles.base.data.local.PoiDao
+import com.carles.base.data.local.PoiDatabase
+import com.carles.base.domain.Poi
+import com.carles.base.domain.PoiDetail
 import org.assertj.core.api.Assertions
 import org.junit.After
 import org.junit.Before
@@ -20,7 +20,10 @@ class PoiDaoTest {
 
     @get:Rule
     val instantTaskExecutorRule = InstantTaskExecutorRule()
-    private val poiList = listOf(Poi("1", "", ""), Poi("2", "", ""))
+    private val poiList = listOf(
+        Poi("1", "", ""),
+        Poi("2", "", "")
+    )
     private val poiDetail = PoiDetail("1")
     lateinit var database: PoiDatabase
     lateinit var dao: PoiDao

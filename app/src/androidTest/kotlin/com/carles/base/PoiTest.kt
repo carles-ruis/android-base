@@ -12,7 +12,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import androidx.test.rule.ActivityTestRule
 import com.carles.base.extensions.*
-import com.carles.base.poi.ui.PoiListActivity
+import com.carles.base.ui.poilist.PoiListActivity
 import junit.framework.Assert.assertTrue
 import org.hamcrest.Matchers.startsWith
 import org.junit.Rule

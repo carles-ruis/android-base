@@ -1,6 +1,9 @@
 package com.carles.base.poi.data
 
 import com.carles.base.*
+import com.carles.base.data.PoiRepository
+import com.carles.base.data.local.PoiLocalDatasource
+import com.carles.base.data.remote.PoiRemoteDatasource
 import io.mockk.*
 import io.reactivex.Single
 import org.junit.Test

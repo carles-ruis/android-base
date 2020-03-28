@@ -1,7 +1,8 @@
 package com.carles.base.poi.data
 
+import com.carles.base.data.remote.toModel
 import com.carles.base.emptyPoiListResponseDto
-import com.carles.base.poi.domain.Poi
+import com.carles.base.domain.Poi
 import com.carles.base.poiDetailResponseDto
 import com.carles.base.poiListResponseDto
 import com.carles.base.poiResponseDto

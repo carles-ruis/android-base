@@ -1,5 +1,8 @@
 package com.carles.base.core.data
 
+import com.carles.base.data.local.Cache
+import com.carles.base.data.local.CacheItems
+import com.carles.base.data.local.CacheKey
 import io.mockk.*
 import org.assertj.core.api.Assertions
 import org.junit.Test
