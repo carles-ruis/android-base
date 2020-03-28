@@ -29,13 +29,11 @@ class PoiListViewModel(private val fetchPoiListUsecase: FetchPoiListUsecase) : V
             .addTo(disposables)
     }
 
-    @VisibleForTesting
     private fun onGetPoiSuccess(data: List<Poi>) {
         _observablePoiList.setSuccess(data)
     }
 
-    @VisibleForTesting
-    fun onGetPoiError(throwable: Throwable) {
+    private fun onGetPoiError(throwable: Throwable) {
         _observablePoiList.setError(throwable.message)
     }
 
