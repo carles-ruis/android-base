@@ -1,8 +1,8 @@
 <resources>
-    <string name="app_name">POI LIST</string>
+    <string name="app_name">BCN POIS</string>
     <string name="error_retry">RETRY</string>
     <string name="error_server_response">Error obtaining data from the server</string>
 
-    <string name="poilist_title">POI LIST</string>
+    <string name="poilist_title">@string/app_name</string>
     <string name="poidetail_title" />
 </resources>

@@ -14,18 +14,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.carles.base.ui.poilist.PoiListActivity"
-            android:label="@string/poilist_title">
+            android:name="com.carles.base.ui.MainActivity"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity
-            android:name="com.carles.base.ui.poidetail.PoiDetailActivity"
-            android:label="@string/poidetail_title" />
 
         <meta-data
             android:name="preloaded_fonts"

@@ -1,56 +1,39 @@
 package com.carles.base.ui.poidetail
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
+import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.fragment.findNavController
 import com.carles.base.R
 import com.carles.base.domain.PoiDetail
-import com.carles.base.ui.ERROR
-import com.carles.base.ui.LOADING
-import com.carles.base.ui.ResourceState
-import com.carles.base.ui.SUCCESS
-import com.carles.base.ui.showError
+import com.carles.base.ui.*
 import com.google.android.material.appbar.MaterialToolbar
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_address_textview
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_contentview
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_description_textview
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_mail_textview
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_phone_textview
-import kotlinx.android.synthetic.main.activity_poi_detail.poidetail_transport_textview
+import kotlinx.android.synthetic.main.fragment_poi_detail.*
 import kotlinx.android.synthetic.main.view_progress.progress
 import org.koin.android.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
-class PoiDetailActivity : AppCompatActivity() {
+class PoiDetailFragment : Fragment(R.layout.fragment_poi_detail) {
 
-    private val viewModel by viewModel<PoiDetailViewModel> { parametersOf(intent.getStringExtra(EXTRA_ID)) }
-    private lateinit var toolbar: Toolbar
+    private val viewModel by viewModel<PoiDetailViewModel> { parametersOf(requireArguments().getString(EXTRA_ID)) }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_poi_detail)
-        initViews()
-        initObservers()
-    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-    private fun initViews() {
-        toolbar = findViewById<MaterialToolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.apply {
+        val toolbar = poidetail_toolbar as MaterialToolbar
+        (activity as AppCompatActivity).setSupportActionBar(toolbar)
+        (activity as AppCompatActivity).supportActionBar?.apply {
             setDisplayHomeAsUpEnabled(true)
             setDisplayShowHomeEnabled(true)
         }
-        toolbar.setNavigationOnClickListener { onBackPressed() }
-    }
+        toolbar.setNavigationOnClickListener { findNavController().navigateUp() }
 
-    private fun initObservers() {
-        viewModel.observablePoiDetail.observe(this, Observer {
+        viewModel.observablePoiDetail.observe(viewLifecycleOwner, Observer {
             it?.let {
                 handlePoiDetail(it.state, it.data, it.message)
             }
@@ -72,7 +55,7 @@ class PoiDetailActivity : AppCompatActivity() {
     }
 
     private fun displayPoiDetail(poi: PoiDetail) {
-        supportActionBar!!.setTitle(poi.title)
+        (activity as AppCompatActivity).supportActionBar?.setTitle(poi.title)
         poidetail_contentview.visibility = VISIBLE
         poidetail_address_textview.text = poi.address
         poidetail_description_textview.text = poi.description
@@ -93,10 +76,16 @@ class PoiDetailActivity : AppCompatActivity() {
         progress?.visibility = View.GONE
     }
 
+    private fun showError(errorMessage: String?) {
+        safeNavigate(
+            R.id.poiDetailFragment,
+            R.id.action_poiDetailFragment_to_errorDialogFragment,
+            ErrorDialogFragment.getBundle(errorMessage)
+        )
+    }
+
     companion object {
-        private const val EXTRA_ID = "poi_detail_extra_id"
-        fun newIntent(context: Context, id: String) =
-            Intent(context, PoiDetailActivity::class.java).apply { putExtra(
-                EXTRA_ID, id) }
+        private const val EXTRA_ID = "id"
+        fun getBundle(id: String) = bundleOf(EXTRA_ID to id)
     }
 }
